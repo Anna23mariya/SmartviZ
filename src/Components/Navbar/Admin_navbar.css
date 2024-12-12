@@ -1,0 +1,47 @@
+/* Admin Navbar */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px; /* Set navbar height */
+    background: rgb(19, 14, 44); /* Dark background color */
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.navbar h1 {
+    font-size: 32px;
+    font-weight: bold;
+    color: #f4a261; /* Soft orange for branding */
+    font-family: 'Dancing Script', cursive;
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+}
+
+.navbar ul li {
+    display: inline-block;
+}
+
+.navbar ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 10px;
+    transition: all 0.3s ease;
+}
+
+.navbar ul li a:hover {
+    background-color: #6a5acd; /* Purple hover effect */
+    color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(106, 90, 205, 0.4);
+}

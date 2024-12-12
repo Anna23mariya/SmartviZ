@@ -1,0 +1,138 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(80, 121, 143, 0.1);
+    z-index: 1;
+}
+
+.main-container {
+    display: flex;
+    align-items: center;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 20px rgba(33, 15, 15, 0.3);
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 800px;
+    color: #fff;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #3a3f58;
+    padding: 1rem;
+    color: white;
+}
+
+.record-button {
+    background-color: #ff6b6b;
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer; /* Show pointer cursor on hover */
+    transition: background-color 0.3s ease;
+    margin-right: 10px; /* Add space between buttons */
+}
+
+.record-button:hover {
+    background-color: #ff4b4b;
+}
+
+.recording {
+    background-color: #28a745;
+    color: white;
+}
+
+.stop-button {
+    background-color: #ff6b6b;
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer; /* Show pointer cursor on hover */
+    transition: background-color 0.3s ease;
+}
+
+.stop-button:hover {
+    background-color: #ff4b4b;
+}
+
+/* Notes Section */
+#notes-section {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#notes-section h2 {
+    margin-bottom: 1rem;
+}
+
+#search-bar {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.notes-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.note-card {
+    padding: 1rem;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 600px) {
+    .main-container {
+        padding: 20px;
+    }
+
+    .record-button, .stop-button {
+        width: 100%;
+        padding: 1rem;
+    }
+
+    .navbar ul {
+        flex-direction: column;
+    }
+}

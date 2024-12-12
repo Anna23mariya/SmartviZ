@@ -1,0 +1,161 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.body {
+  font-family: Arial, sans-serif;
+  background: url('../../assets/background.jpeg') no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100vw;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(80, 110, 120, 0.4); /* Semi-transparent overlay */
+  z-index: 1;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: row; /* Horizontal layout */
+  align-items: center; /* Center vertically */
+  justify-content: space-between; /* Add spacing */
+  background: rgba(30, 40, 50, 0.7); /* Semi-transparent background */
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 20px rgba(33, 15, 15, 0.3);
+  z-index: 2;
+  width: 100%;
+  max-width: 900px; /* Ensure a proper container width */
+}
+
+
+.branding {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 36px;
+  font-weight: bold;
+  color: rgb(160, 68, 11);
+  font-family: 'Dancing Script', cursive;
+}
+
+.welcome-section {
+  flex: 2; /* Take 2x the space of the login container */
+  text-align: left; /* Left-align text */
+  padding-right: 20px;
+}
+
+
+
+
+.welcome-section h2 {
+  font-size: 28px;
+  margin-bottom: 15px;
+  color: rgb(115, 115, 101);
+}
+
+.welcome-section p {
+  font-size: 16px;
+  line-height: 1.5;
+  color: rgb(10, 2, 32);
+  font-weight: 550;
+}
+
+.container {
+  flex: 1; /* Take 1x the space of the welcome section */
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 40px;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+
+.container h2 {
+  font-size: 26px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.container form input {
+  font-size: 15px;
+}
+
+.container form input[type="text"],
+.container form input[type="password"] {
+  background-color: rgba(255, 255, 255, 0.2);
+  border: none;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  color: #aaa;
+}
+
+.container form input::placeholder {
+  color: #ccc;
+}
+
+.container form label {
+  font-size: 14px;
+  color: #ddd;
+  margin-bottom: 15px;
+}
+
+.container .login-button {
+  background-color: #ffffff;
+  color: #6a5acd;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.container .login-button:hover {
+  background-color: #6a5acd;
+  color: #ffffff;
+}
+
+.extra-options {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  font-size: 14px;
+  color: #ddd;
+}
+
+.extra-options a {
+  color: #6a5acd;
+  text-decoration: none;
+}
+
+.extra-options a:hover {
+  text-decoration: underline;
+}
+
+.error-message {
+  color: red;
+  margin-top: 10px;
+  font-size: 14px;
+}

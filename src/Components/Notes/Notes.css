@@ -1,0 +1,65 @@
+/* src/components/Notes.css */
+
+/* Main container for the notes section */
+.notes-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+}
+
+/* Notes section header */
+#notes-section h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: rgb(115, 115, 101); /* Darker contrasting color */
+}
+
+/* Search bar for filtering notes */
+#search-bar {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    width: 80%;
+    max-width: 400px;
+    background-color: #f1f1f1;
+    color: #333;
+}
+
+#search-bar::placeholder {
+    color: #999;
+}
+
+/* Container for displaying the list of notes */
+.notes-list {
+    display: flex;
+    flex-direction: column; /* Arrange notes vertically */
+    align-items: center;
+    width: 100%;
+    max-height: 400px;
+    overflow-y: auto; /* Scroll if notes exceed container height */
+}
+
+/* Individual note card styling */
+.note-card {
+    background: #f7f9fc; /* Light background for note cards */
+    padding: 20px;
+    border-radius: 10px;
+    margin: 10px;
+    width: 80%; /* Adjust width for vertical listing */
+    max-width: 600px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.note-card h3 {
+    color: #333;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.note-card p {
+    color: #555;
+    font-size: 14px;
+}
