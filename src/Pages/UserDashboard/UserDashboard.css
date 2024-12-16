@@ -44,13 +44,9 @@ body::before {
     background-repeat: no-repeat;
 }
 
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #3a3f58;
-    padding: 1rem;
-    color: white;
+.record-button-container {
+    position: relative;
+    z-index: 1;
 }
 
 .record-button {
@@ -66,8 +62,26 @@ body::before {
 }
 
 .record-button:hover {
-    background-color: #ff4b4b;
+    background-color: #ef1212 !important;
+    color: black !important;
+    transform: scale(1.1); /* Add scaling effect to confirm hover */
 }
+
+.record-button.recording {
+    background-color: #28a745; /* Change color when recording */
+}
+
+.record-button.recording:hover {
+    background-color: #1c7c2a;
+}
+
+.record-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed; /* Provide feedback for disabled buttons */
+    opacity: 1;
+}
+
+
 
 .recording {
     background-color: #28a745;
@@ -86,41 +100,9 @@ body::before {
 }
 
 .stop-button:hover {
-    background-color: #ff4b4b;
+    background-color: #ef1212;
 }
 
-/* Notes Section */
-#notes-section {
-    background-color: white;
-    padding: 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-#notes-section h2 {
-    margin-bottom: 1rem;
-}
-
-#search-bar {
-    width: 100%;
-    padding: 0.5rem;
-    margin-bottom: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-.notes-container {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.note-card {
-    padding: 1rem;
-    border-radius: 4px;
-    background-color: #f9f9f9;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
 
 @media (max-width: 600px) {
     .main-container {

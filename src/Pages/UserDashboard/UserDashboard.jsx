@@ -1,95 +1,69 @@
-import React, { useState, useRef } from 'react';
+import { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Notes from '../../Components/Notes/Notes'; // Import Notes component
 import './UserDashboard.css'; // Import the CSS file for dashboard styling
 import Navbar from '../../Components/Navbar/Navbar';
 
-const Dashboard = () => {
-    const [isRecording, setIsRecording] = useState(false);
-    const [transcription, setTranscription] = useState("");
-    const mediaRecorderRef = useRef(null);
-    const audioChunksRef = useRef([]);
+const UserDashboard = () => {
+  const [isRecording, setIsRecording] = useState(false);
+  const mediaRecorder = useRef(null);
+  const audioChunks = useRef([]);
+  const navigate = useNavigate();
 
-    // Start recording function
-    const startRecording = async () => {
-        try {
-            console.log("Requesting microphone access...");
+  const startRecording = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      mediaRecorder.current = new MediaRecorder(stream);
+      audioChunks.current = [];
 
-            // Request microphone access
-            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-            console.log("Microphone access granted");
+      mediaRecorder.current.ondataavailable = (event) => {
+        audioChunks.current.push(event.data);
+      };
 
-            // Initialize MediaRecorder
-            const mediaRecorder = new MediaRecorder(stream);
-            mediaRecorderRef.current = mediaRecorder;
-
-            // Clear previous audio chunks
-            audioChunksRef.current = [];
-
-            // Collect audio data
-            mediaRecorder.ondataavailable = (event) => {
-                console.log("Audio data available...");
-                audioChunksRef.current.push(event.data);
-            };
-
-            // When recording stops
-            mediaRecorder.onstop = async () => {
-                console.log("Recording stopped");
-
-                const audioBlob = new Blob(audioChunksRef.current, { type: "audio/wav" });
-
-                // Stop all tracks to release microphone
-                stream.getTracks().forEach((track) => track.stop());
-                console.log("Audio recording stopped and microphone released.");
-
-                // Send audio to backend
-                await sendAudioToBackend(audioBlob);
-            };
-
-            // Start recording
-            mediaRecorder.start();
-            console.log("Recording started");
-
-            setIsRecording(true);  // Set isRecording to true when recording starts
-        } catch (error) {
-            console.error("Error accessing microphone:", error);
-        }
-    };
-
-    // Stop recording function
-    const stopRecording = () => {
-        if (mediaRecorderRef.current) {
-            console.log("Stopping recording...");
-            mediaRecorderRef.current.stop();  // Stop the recording
-            setIsRecording(false);  // Set isRecording to false when recording stops
-        }
-    };
-
-    // Send audio to backend
-    const sendAudioToBackend = async (audioBlob) => {
+      mediaRecorder.current.onstop = async () => {
+        const audioBlob = new Blob(audioChunks.current, { type: 'audio/wav' });
         const formData = new FormData();
-        formData.append("audio", audioBlob, "recorded_audio.wav");
+        formData.append('audio_data', audioBlob);
 
         try {
-            console.log("Sending audio to backend...");
-            const response = await fetch("http://127.0.0.1:5000/transcribe", {
-                method: "POST",
-                body: formData,
-            });
+          const response = await fetch('http://localhost:5000/upload', {
+            method: 'POST',
+            body: formData,
+            timeout: 10000  // 10-second timeout
+          });
 
-            if (!response.ok) {
-                throw new Error("Failed to fetch transcription from backend");
-            }
+          if (!response.ok) {
+            throw new Error('Failed to upload audio');
+          }
 
-            const data = await response.json();
-            setTranscription(data.transcription);  // Set the transcription to display it
-            console.log("Transcription:", data.transcription);
+          const data = await response.json();
+          // Navigate to transcript page with the transcription data
+          navigate('/transcript', { state: { transcription: data.transcription } });
         } catch (error) {
-            console.error("Error sending audio to backend:", error);
+          console.error('Error uploading audio:', error);
+          alert('Failed to process audio. Please try again.');
         }
-    };
+      };
 
-    return (
-        <div className="dashboard-container">
+      mediaRecorder.current.start();
+      setIsRecording(true);
+    } catch (error) {
+      console.error('Error accessing microphone:', error);
+      alert('Failed to access microphone. Please check permissions.');
+    }
+  };
+
+  const stopRecording = () => {
+    if (mediaRecorder.current && mediaRecorder.current.state === 'recording') {
+      mediaRecorder.current.stop();
+      setIsRecording(false);
+      // Stop all audio tracks
+      mediaRecorder.current.stream.getTracks().forEach(track => track.stop());
+    }
+  };
+
+  return (
+    <div className="dashboard-container">
             {/* Dashboard Header */}
             <div className="dashboard-header">
                 <Navbar />
@@ -112,19 +86,28 @@ const Dashboard = () => {
                     Stop Recording
                 </button>
             </div>
+        {isRecording && (
+          <p className="mt-4 text-center text-red-500">Recording in progress...</p>
+        )}
 
-            {/* Display Transcription */}
-            {transcription && (
-                <div className="transcription-container">
-                    <h3>Transcription:</h3>
-                    <p>{transcription}</p>
-                </div>
-            )}
+        
 
             {/* Notes Section */}
             <Notes /> {/* Render the Notes component here */}
         </div>
-    );
+      
+  );
 };
 
-export default Dashboard;
+export default UserDashboard;
+
+
+
+
+
+
+
+
+
+
+

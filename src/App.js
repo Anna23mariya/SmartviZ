@@ -5,6 +5,7 @@ import Login from './Pages/Login/Login';
 import UserDashboard from './Pages/UserDashboard/UserDashboard';
 import AdminDashboard from './Pages/Admin/AdminDashboard';
 import Signup from './Pages/Signup/Signup';
+import Transcript from './Pages/Transcript/Transcript';
 import './App.css';  // Import the CSS file
 
 function App() {
@@ -21,6 +22,8 @@ function App() {
                 
                 {/* Route for Admin Dashboard */}
                 <Route path="/admin-dashboard" element={<AdminDashboard />} />
+
+                <Route path="/transcript" element={<Transcript />} />
             </Routes>
         </Router>
     );
