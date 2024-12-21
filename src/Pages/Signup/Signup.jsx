@@ -2,32 +2,38 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Signup.css";
 import backgroundImage from "../../assets/background.jpeg"; // Adjust path as per your project structure
+import { auth } from "../firebase"; // Import Firebase auth instance
+import { createUserWithEmailAndPassword } from "firebase/auth"; // Import Firebase auth method
 
 const Signup = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
+  const [errorMessage, setErrorMessage] = useState(""); // Hook for error messages
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSignup = (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
     if (formData.password !== formData.confirmPassword) {
       alert("Passwords do not match!");
       return;
     }
-    // Save user details (mock or API call)
-    console.log("User registered:", formData);
-    // Redirect to login
-    navigate("/login");
+    try {
+      await createUserWithEmailAndPassword(auth, formData.email, formData.password);
+      console.log("Account Created");
+      alert("Account Created Successfully! You can now login.");
+      navigate("/login"); // Redirect to login page
+    } catch (err) {
+      console.error(err);
+      setErrorMessage("Failed to create account. Please try again.");
+    }
   };
 
   return (
@@ -67,22 +73,6 @@ const Signup = () => {
           <h2>Create Account</h2>
           <form onSubmit={handleSignup}>
             <input
-              type="text"
-              name="firstName"
-              placeholder="First Name"
-              value={formData.firstName}
-              onChange={handleChange}
-              required
-            />
-            <input
-              type="text"
-              name="lastName"
-              placeholder="Last Name"
-              value={formData.lastName}
-              onChange={handleChange}
-              required
-            />
-            <input
               type="email"
               name="email"
               placeholder="Email"
@@ -106,10 +96,13 @@ const Signup = () => {
               onChange={handleChange}
               required
             />
-            <button type="submit" className="signup-button">Sign Up</button>
+            <button type="submit" className="signup-button">
+              Sign Up
+            </button>
           </form>
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
           <div className="extra-options">
-            <a href="/login">Already have an account? Login</a>
+            <a href="/Login">Already have an account? Login</a>
           </div>
         </div>
       </div>

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from './Pages/Login/Login';
+import Dashboard from './Pages/Dashboard/Dashboard';
 import UserDashboard from './Pages/UserDashboard/UserDashboard';
 import AdminDashboard from './Pages/Admin/AdminDashboard';
 import Signup from './Pages/Signup/Signup';
@@ -13,10 +14,12 @@ function App() {
         <Router>
             <Routes>
                 {/* Default Route */}
-                <Route path="/" element={<Login />} />
+                <Route path="/login" element={<Login />} />
 
                 <Route path="/register" element={<Signup />} />
                 
+                <Route path="/dashboard" element={<Dashboard />} />
+
                 {/* Route for User Dashboard */}
                 <Route path="/user-dashboard" element={<UserDashboard />} />
                 

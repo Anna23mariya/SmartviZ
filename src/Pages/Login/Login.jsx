@@ -3,27 +3,29 @@ import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import './Login.css';
 import backgroundImage from '../../assets/background.jpeg';
 import { Link } from 'react-router-dom'; // Import Link
+import { auth } from '../firebase'; // Import Firebase auth instance
+import { signInWithEmailAndPassword } from 'firebase/auth'; // Import Firebase auth method
 
 const LoginPage = () => {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    const adminUsername = "admin@123";
-    const adminPassword = "123@admin";
-
-    if (username === adminUsername && password === adminPassword) {
-      navigate("/admin-dashboard"); // Redirect to admin dashboard
-    } else if (username === "user@123" && password === "123@user") {
-      navigate("/user-dashboard"); // Redirect to user dashboard
-    } else {
-      setErrorMessage("Invalid username or password. Please try again.");
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      console.log("Login successful");
+      // Redirect based on role or user type (if applicable)
+      // For now, redirecting to a generic dashboard
+      navigate("/dashboard");
+    } catch (err) {
+      console.error(err);
+      setErrorMessage("Invalid email or password. Please try again.");
     }
-};
-
+  };
 
   return (
     <div className='body' style={{ backgroundImage: `url(${backgroundImage})` }} >
@@ -63,33 +65,28 @@ const LoginPage = () => {
     }}
   >
         <h2>Login</h2>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleLogin();
-          }}
-        >
-          <input
-            type="text"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          <label>
-            <input type="checkbox" name="remember-me" /> Remember me
-          </label>
-          <button type="submit" className="login-button">
-            Login
-          </button>
-        </form>
+        <form onSubmit={handleLogin}>
+            <input
+              type="email" // Changed to email input type
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <label>
+              <input type="checkbox" name="remember-me" /> Remember me
+            </label>
+            <button type="submit" className="login-button">
+              Login
+            </button>
+          </form>
         <div className="extra-options">
           <a href="#">Forgot password?</a>
           <a href="/register">Register</a>
