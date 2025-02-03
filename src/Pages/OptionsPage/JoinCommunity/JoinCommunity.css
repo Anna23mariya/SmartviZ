@@ -1,0 +1,43 @@
+.join-community-container {
+    max-width: 500px;  /* Increased width */
+    margin: auto;
+    padding: 30px;  /* More padding for a larger container */
+    text-align: center;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .join-community-h2 {
+    color: #333;
+    font-size: 32px;  /* Increased font size for the header */
+  }
+  
+  .join-community-p {
+    color: #666;
+    font-size: 15px;  /* Increased font size for the paragraph */
+  }
+  
+  .join-community-input {
+    width: 100%;
+    padding: 15px;  /* Increased padding for the input field */
+    margin: 15px 0;  /* Increased margin between elements */
+    font-size: 18px;  /* Increased font size for input text */
+    border: 1px solid #ccc;
+    border-radius: 8px;  /* Slightly rounded edges */
+  }
+  
+  .join-community-button {
+    width: 100%;
+    padding: 15px;  /* Increased padding for the button */
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;  /* Slightly rounded edges */
+    cursor: pointer;
+    font-size: 18px;  /* Increased font size for button text */
+  }
+  
+  .join-community-button:hover {
+    background: #0056b3;
+  }

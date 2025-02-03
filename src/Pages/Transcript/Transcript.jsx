@@ -1,5 +1,6 @@
 import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
+import jsPDF from 'jspdf';
 import './Transcript.css'; // Import the CSS file for dashboard styling
 import Navbar from '../../Components/Navbar/Navbar';
 
@@ -7,7 +8,6 @@ const Transcript = () => {
   const location = useLocation();
   const transcription = location.state?.transcription || 'No transcription available';
 
-  // State to store the generated summary
   const [summary, setSummary] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -16,7 +16,7 @@ const Transcript = () => {
   const handleSummarize = async () => {
     setLoading(true);
     setError('');
-    setSummary(''); // Clear previous summary
+    setSummary('');
 
     try {
       const response = await fetch('http://localhost:5000/summarize', {
@@ -26,7 +26,6 @@ const Transcript = () => {
         },
         body: JSON.stringify({ text: transcription }),
       });
-      
 
       const data = await response.json();
 
@@ -42,35 +41,84 @@ const Transcript = () => {
     }
   };
 
+  // Function to generate, download, and upload PDF to the database
+  const handleGeneratePDF = async () => {
+    try {
+      const doc = new jsPDF();
+      doc.text('Summary:', 10, 10);
+      doc.text(summary, 10, 20);
+
+      // Automatically download the PDF
+      const pdfFilename = 'summary.pdf';
+      doc.save(pdfFilename);
+
+      // Save the PDF to a Blob
+      const pdfBlob = doc.output('blob');
+      const formData = new FormData();
+
+      // Append the PDF and metadata to the FormData
+      formData.append('file', pdfBlob, pdfFilename);
+      formData.append('transcription_id', '12345'); // Replace with actual transcription ID if available
+
+      // Upload the PDF to the backend
+      const response = await fetch('http://localhost:5000/upload-pdf', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log(`PDF uploaded successfully! PDF ID: ${data.pdf_id}`);
+      } else {
+        console.error(`Failed to upload PDF: ${data.message}`);
+      }
+    } catch (error) {
+      console.error('Error generating or uploading the PDF:', error.message);
+    }
+  };
+
   return (
     <div className="transcript-container">
       <div className="transcript-header">
         <Navbar />
       </div>
 
-      {/* Transcription Display */}
       <div className="transcription-content">
         <h3>Transcription:</h3>
         <p>{transcription}</p>
 
-        {/* Summarize Button */}
         <button
           className="summarize-button"
           onClick={handleSummarize}
-          disabled={loading} // Disable button when loading
+          disabled={loading}
         >
           {loading ? 'Summarizing...' : 'Summarize'}
         </button>
 
-        {/* Display Generated Summary */}
         {summary && (
           <div className="summary-content">
             <h3>Summary:</h3>
             <p>{summary}</p>
+
+            {/* Buttons for Generate PDF and Generate Image */}
+            <div className="action-buttons">
+              <button
+                className="generate-pdf-button"
+                onClick={handleGeneratePDF}
+              >
+                Generate PDF
+              </button>
+              <button
+                className="generate-image-button"
+                onClick={() => console.log('Generate Image functionality not implemented yet.')}
+              >
+                Generate Image
+              </button>
+            </div>
           </div>
         )}
 
-        {/* Error Display */}
         {error && (
           <div className="error-message">
             <p>{error}</p>

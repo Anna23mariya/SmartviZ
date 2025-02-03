@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./Dashboard.css";
 import Navbar from '../../Components/Navbar/Navbar';
 import img1 from '../../assets/img1.png';
@@ -6,92 +7,74 @@ import img2 from '../../assets/img2.png';
 import img3 from '../../assets/img3.png';
 import img4 from '../../assets/img4.png';
 
-const DashboardPage = () => {
-  const [hoveredBox, setHoveredBox] = useState(null);
+const Dashboard = () => {
+  const navigate = useNavigate();
 
-  const boxData = [
-    { 
-      type: 'top', 
-      img: img1, 
-      title: "Record & Summarize", 
-      description: "Record and generate summaries.",
-      popupText: "Start Recording"
-    },
-    { 
-      type: 'bottom', 
-      img: img2, 
-      title: "Transcribe", 
-      description: "Transcribe speech to text.",
-      popupText: "Begin Transcription"
-    },
-    { 
-      type: 'bottom', 
-      img: img3, 
-      title: "Upload Audio", 
-      description: "Audio transcription.",
-      popupText: "Upload Audio File"
-    },
-    { 
-      type: 'bottom', 
-      img: img4, 
-      title: "Summarize", 
-      description: "Automatic summarization.",
-      popupText: "Generate Summary"
-    }
-  ];
-
-  const renderBox = (box, index) => {
-    const isHovered = hoveredBox === index;
-    const boxClass = box.type === 'top' ? 'dash-top-box' : 'dash-box';
-
-    return (
-      <div 
-        key={index}
-        className={`${boxClass}`}
-        onMouseEnter={() => setHoveredBox(index)}
-        onMouseLeave={() => setHoveredBox(null)}
-      >
-        <div 
-          className={`dash-box-image-container ${isHovered ? 'hovered' : ''}`}
-          style={{ cursor: 'pointer' }} // Pointer cursor only on image container
-        >
-          <img 
-            src={box.img} 
-            alt={`AI Image ${box.title}`} 
-            className="dash-box-image"
-          />
-        </div>
-        <div className="dash-box-text">
-          <h3>{box.title}</h3>
-          <p>{box.description}</p>
-        </div>
-        {isHovered && (
-          <div className="dash-popup">
-            {box.popupText}
-          </div>
-        )}
-      </div>
-    );
+  const handleNavigate = (path) => {
+    navigate(path);
   };
 
   return (
-    <div>
+    <div className="dash-container">
       <Navbar />
-      <div className="dash-container">
-        <h1 className="dash-header">Create with SmartviZ!</h1>
-        
-        <div className="dash-box-container">
-          {/* Top Box */}
-          {renderBox(boxData[0], 0)}
+      <main>
+        <h1 className="dash-title">Create with SmartviZ!</h1>
+        <div className="dash-card-container">
+          {/* First Row */}
+          <div className="dash-card-row">
+            <div className="dash-card">
+              <img src={img1} alt="Record & Summarize" />
+              <h2>Record & Summarize</h2>
+              <p>Record and generate summaries.</p>
+              <button
+                className="dash-btn"
+                onClick={() => handleNavigate("/user-dashboard")}
+              >
+                Go
+              </button>
+            </div>
+          </div>
 
-          {/* Bottom Boxes */}
-          <div className="dash-bottom-boxes">
-            {boxData.slice(1).map((box, index) => renderBox(box, index + 1))}
+          {/* Second Row */}
+          <div className="dash-card-row">
+            <div className="dash-card">
+              <img src={img2} alt="Transcribe" />
+              <h2>Transcribe</h2>
+              <p>Transcribe speech to text.</p>
+              <button
+                className="dash-btn"
+                onClick={() => handleNavigate("/transcribepage")}
+              >
+                Go
+              </button>
+            </div>
+            <div className="dash-card">
+              <img src={img3} alt="Upload Audio" />
+              <h2>Upload Audio</h2>
+              <p>Audio transcription.</p>
+              <button
+                className="dash-btn"
+                onClick={() => handleNavigate("/uploadimgpage")}
+              >
+                Go
+              </button>
+            </div>
+            <div className="dash-card">
+              <img src={img4} alt="Summarize" />
+              <h2>Summarize</h2>
+              <p>Automatic summarization.</p>
+              <button
+                className="dash-btn"
+                onClick={() => handleNavigate("/summarizepage")}
+              >
+                Go
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 };
 
-export default DashboardPage;
+export default Dashboard;

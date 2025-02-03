@@ -18,7 +18,7 @@ const LoginPage = () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       console.log("Login successful");
-      // Redirect based on role or user type (if applicable)
+      // Redirect based on role or user type (if applicable)cd
       // For now, redirecting to a generic dashboard
       navigate("/dashboard");
     } catch (err) {

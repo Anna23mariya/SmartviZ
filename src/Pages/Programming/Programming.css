@@ -1,0 +1,51 @@
+.programming-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .programming-recording-section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .programming-record-button,
+  .programming-stop-button  {
+    z-index: 10;
+  }
+  
+  .programming-record-button,
+  .programming-stop-button {
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  .programming-record-button:hover,
+  .programming-stop-button:hover {
+    background-color: #0056b3;
+  }
+
+  
+  .programming-stop-button {
+    background-color: #dc3545;
+  }
+  
+  .programming-status-text {
+    margin-top: 10px;
+    text-align: center;
+  }
+  
+  .programming-red {
+    color: red;
+  }
+  
+  .programming-blue {
+    color: blue;
+  }
+  
+  .programming-green {
+    color: green;
+  }
+  

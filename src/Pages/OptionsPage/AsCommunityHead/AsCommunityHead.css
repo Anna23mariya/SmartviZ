@@ -1,0 +1,280 @@
+/* Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #1e293b;
+}
+
+.dashboard-wrapper {
+  min-height: 100vh;
+}
+
+/* Dashboard Container */
+.community-dashboard-container {
+  display: flex;
+  height: 90vh;
+  width: 90vw;
+  background: rgba(30, 40, 50, 0.8);
+  border-radius: 10px;
+  overflow: hidden;
+  color: #fff;
+  margin: 20px auto;
+  position: relative;
+}
+
+/* Sidebar Styles */
+.community-sidebar {
+  width: 300px;
+  padding: 20px;
+  background: rgba(40, 50, 60, 0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  z-index: 1;
+}
+
+.community-dashboard-title {
+  font-size: 22px;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+/* Create Community Box */
+.create-community-box {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 15px;
+  border-radius: 10px;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.create-community-box h3 {
+  margin-bottom: 15px;
+  color: #fff;
+}
+
+.input-container {
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 3;
+}
+
+.create-community-box input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  background-color: white;
+  color: #333;
+  position: relative;
+  z-index: 4;
+}
+
+.create-community-box input:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+.error-input {
+  border-color: #ef4444 !important;
+}
+
+.error-message {
+  color: #ef4444;
+  font-size: 14px;
+  margin-top: 5px;
+  text-align: left;
+}
+
+.create-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  position: relative;
+  z-index: 4;
+}
+
+.create-button:hover {
+  background-color: #2563eb;
+}
+
+/* Rest of your CSS remains the same */
+/* ... */
+
+/* Community List */
+.community-list {
+  width: 100%;
+}
+
+.community-box {
+  background: rgba(255, 255, 255, 0.3);
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.community-box:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.community-box.selected {
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid #3b82f6;
+}
+
+.no-community-text {
+  color: #ccc;
+  text-align: center;
+  padding: 10px;
+}
+
+/* Main Content */
+.community-main-content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.select-community-message {
+  font-size: 20px;
+  text-align: center;
+  margin-top: 20%;
+  color: #ccc;
+}
+
+/* Community Details */
+.community-details {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.community-name {
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+/* Members Section */
+.members-section {
+  margin-bottom: 30px;
+}
+
+.members-list {
+  list-style: none;
+  padding: 0;
+}
+
+.member-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+}
+
+.member-name {
+  flex: 1;
+}
+
+.member-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.action-button {
+  padding: 5px 10px;
+  border-radius: 3px;
+  border: none;
+  cursor: pointer;
+  color: white;
+  transition: opacity 0.3s;
+}
+
+.action-button:hover {
+  opacity: 0.9;
+}
+
+.approve-button {
+  background-color: #22c55e;
+}
+
+.remove-button {
+  background-color: #ef4444;
+}
+
+.no-members-text {
+  color: #ccc;
+  text-align: center;
+  padding: 10px;
+}
+
+/* Announcement Section */
+.announcement-section {
+  margin-top: 20px;
+}
+
+.announcement-section h4 {
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.announcement-input {
+  width: 100%;
+  height: 100px;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  background-color: white;
+  color: #333;
+  resize: vertical;
+}
+
+.send-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.send-button:hover {
+  background-color: #2563eb;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .community-dashboard-container {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .community-sidebar {
+    width: 100%;
+  }
+
+  .community-main-content {
+    padding: 10px;
+  }
+}

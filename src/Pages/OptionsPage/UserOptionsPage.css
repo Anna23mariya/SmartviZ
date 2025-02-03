@@ -1,0 +1,79 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  .body {
+    font-family: Arial, sans-serif;
+    background: url('../../assets/background.jpeg') no-repeat center center fixed;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100vw;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+  }
+  
+  .main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(30, 40, 50, 0.7);
+    padding: 70px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 20px rgba(33, 15, 15, 0.3);
+    z-index: 2;
+    width: 700%;
+    max-width: 700px;
+    text-align: center;
+  }
+  
+  .branding {
+    font-size: 36px;
+    font-weight: bold;
+    color: rgb(160, 68, 11);
+    font-family: 'Dancing Script', cursive;
+    margin-bottom: 20px;
+  }
+  
+  .options-heading {
+    font-size: 28px;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 20px;
+  }
+  
+  .options-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .option {
+    font-size: 18px;
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+  }
+  
+  .option:hover {
+    background: rgba(255, 255, 255, 0.4);
+  }
