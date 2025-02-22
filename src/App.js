@@ -20,6 +20,8 @@ import UserOptions from './Pages/OptionsPage/UserOptionPage';
 import AsCommunityHead from './Pages/OptionsPage/AsCommunityHead/AsCommunityHead';
 import JoinCommunity from './Pages/OptionsPage/JoinCommunity/JoinCommunity';
 
+import UserOfCommunity from './Pages/UserOfCommunity/UserOfCommunity';
+
 import './App.css';  // Import the CSS file
 
 function App() {
@@ -54,6 +56,7 @@ function App() {
                 <Route path="/community-head" element={<AsCommunityHead />} />
                 <Route path="/join-community" element={<JoinCommunity />} />
 
+                <Route path="/user-of-community" element={<UserOfCommunity />} />
 
             </Routes>
         </Router>

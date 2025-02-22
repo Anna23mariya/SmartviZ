@@ -38,23 +38,23 @@ const Dashboard = () => {
           {/* Second Row */}
           <div className="dash-card-row">
             <div className="dash-card">
-              <img src={img2} alt="Transcribe" />
-              <h2>Transcribe</h2>
+              <img src={img2} alt="Create Community" />
+              <h2>Community</h2>
               <p>Transcribe speech to text.</p>
               <button
                 className="dash-btn"
-                onClick={() => handleNavigate("/transcribepage")}
+                onClick={() => handleNavigate("/community-head")}
               >
                 Go
               </button>
             </div>
             <div className="dash-card">
-              <img src={img3} alt="Upload Audio" />
-              <h2>Upload Audio</h2>
+              <img src={img3} alt="Join Community" />
+              <h2>Join communities</h2>
               <p>Audio transcription.</p>
               <button
                 className="dash-btn"
-                onClick={() => handleNavigate("/uploadimgpage")}
+                onClick={() => handleNavigate("/join-community")}
               >
                 Go
               </button>

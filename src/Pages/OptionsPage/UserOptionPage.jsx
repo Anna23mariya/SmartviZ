@@ -4,7 +4,6 @@ import backgroundImage from '../../assets/background.jpeg';
 import { useNavigate } from "react-router-dom";
 import Navbar from '../../Components/Navbar/Navbar';
 
-
 const UserOptionsPage = () => {
   const navigate = useNavigate();
 

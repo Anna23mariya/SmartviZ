@@ -64,7 +64,7 @@ body::before {
   font-size: 1.1rem;
 }
 
-.summarize-button {
+.summarize-button, .generate-notes-button {
   background-color: #ff6b6b;
   color: white;
   padding: 1rem 2rem;
@@ -75,7 +75,7 @@ body::before {
   transition: background-color 0.3s ease;
 }
 
-.summarize-button:hover {
+.summarize-button, .generate-notes-button:hover {
   background-color: #460404;
 }
 
@@ -83,7 +83,7 @@ body::before {
   .transcription-content {
       padding: 15px;
   }
-  .summarize-button {
+  .summarize-button, .generate-notes-button {
       width: 100%;
       padding: 1rem;
   }

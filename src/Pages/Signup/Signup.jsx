@@ -28,6 +28,23 @@ const Signup = () => {
     try {
       await createUserWithEmailAndPassword(auth, formData.email, formData.password);
       console.log("Account Created");
+
+      // Add user to MongoDB
+      const response = await fetch('http://localhost:5000/add-user', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to add user to MongoDB');
+      }
+
       alert("Account Created Successfully! You can now login.");
       navigate("/login"); // Redirect to login page
     } catch (err) {

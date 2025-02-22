@@ -12,20 +12,35 @@ const LoginPage = () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
-
+  
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      console.log("Login successful");
-      // Redirect based on role or user type (if applicable)cd
-      // For now, redirecting to a generic dashboard
-      navigate("/dashboard");
-    } catch (err) {
-      console.error(err);
-      setErrorMessage("Invalid email or password. Please try again.");
+      const response = await fetch('http://localhost:5000/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      });
+  
+      const data = await response.json();
+      
+      if (response.ok) {
+        // Store email in localStorage upon successful login
+        localStorage.setItem('userEmail', email);
+        navigate('/dashboard');
+      } else {
+        setErrorMessage(data.message || 'Login failed'); // ✅ Fix applied here
+      }
+    } catch (error) {
+      setErrorMessage('Error connecting to server'); // ✅ Fix applied here
     }
   };
+  
 
   return (
     <div className='body' style={{ backgroundImage: `url(${backgroundImage})` }} >
@@ -99,5 +114,3 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
-
-
