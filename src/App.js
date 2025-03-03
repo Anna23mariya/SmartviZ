@@ -21,8 +21,10 @@ import AsCommunityHead from './Pages/OptionsPage/AsCommunityHead/AsCommunityHead
 import JoinCommunity from './Pages/OptionsPage/JoinCommunity/JoinCommunity';
 
 import UserOfCommunity from './Pages/UserOfCommunity/UserOfCommunity';
+import TranscriptView from './Pages/TranscriptView/TranscriptView';
 
 import './App.css';  // Import the CSS file
+import PythonClass from "./Pages/PythonClass/PythonClass";
 
 function App() {
     return (
@@ -58,6 +60,8 @@ function App() {
 
                 <Route path="/user-of-community" element={<UserOfCommunity />} />
 
+                <Route path="/python-class" element={<PythonClass />} />
+                <Route path="/transcript-view" element={<TranscriptView />} />
             </Routes>
         </Router>
     );

@@ -1,0 +1,226 @@
+/* PythonClass.css */
+.python-class-container {
+  max-width: 800px;
+  margin: auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.python-class-start-btn, .python-class-stop-btn {
+  padding: 10px 20px;
+  margin: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 10;
+  position: relative;
+}
+
+.python-class-start-btn {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.python-class-start-btn:disabled {
+  background-color: #a5d6a7;
+  cursor: not-allowed;
+}
+
+.python-class-stop-btn {
+  background-color: #f44336;
+  color: white;
+}
+
+.python-class-stop-btn:disabled {
+  background-color: #ef9a9a;
+  cursor: not-allowed;
+}
+
+.python-class-status {
+  font-size: 18px;
+  margin-top: 10px;
+  color: #ff9800;
+  text-align: center;
+  font-weight: bold;
+}
+
+.python-class-transcription-box {
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  overflow-x: auto;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.transcription-item {
+  margin-bottom: 20px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+.transcription-item.code {
+  background-color: #272822;
+  color: #f8f8f2;
+  padding: 10px;
+  border-radius: 5px;
+  overflow-x: auto;
+  white-space: pre-wrap;
+}
+
+.transcription-item.theory {
+  background-color: #fff;
+  color: #333;
+  padding: 10px;
+  border-radius: 5px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+.theory-content {
+  white-space: pre-wrap;
+  line-height: 1.6;
+}
+
+/* Make sure code inside the highlighted sections wraps properly */
+.transcription-item.code pre {
+  white-space: pre-wrap; /* Allow long lines to wrap */
+  word-wrap: break-word; /* Break words if necessary */
+  margin: 0;
+}
+
+/* Style for the highlighted code */
+.transcription-item.code .highlight {
+  overflow-x: auto;
+}
+
+/* Ensure all code elements wrap properly */
+.transcription-item.code code {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* Style specifically for Pygments-highlighted code */
+.highlight {
+  overflow-x: auto;
+}
+
+.highlight pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* Adjust margins for paragraphs in theory sections */
+.transcription-item.theory p {
+  margin: 0 0 10px 0;
+}
+
+/* Add a visual separator between different sections */
+.transcription-item + .transcription-item {
+  border-top: 1px solid #eee;
+  padding-top: 15px;
+}
+
+/* Additional CSS for the mode toggle */
+.control-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.recording-controls {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.mode-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.mode-label {
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.mode-toggle-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+  z-index: 10;
+  position: relative;
+}
+
+.mode-toggle-btn.code-mode {
+  background-color: #3498db;
+  color: white;
+}
+
+.mode-toggle-btn.theory-mode {
+  background-color: #e67e22;
+  color: white;
+}
+
+.mode-toggle-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.mode-description {
+  margin-left: 10px;
+  font-size: 0.9em;
+  color: #666;
+}
+
+.recording-indicator {
+  color: #e74c3c;
+  font-weight: bold;
+  animation: pulse 1.5s infinite;
+  margin-top: 10px;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+.empty-state {
+  text-align: center;
+  color: #7f8c8d;
+  font-style: italic;
+  padding: 20px;
+}
+
+.theory-content {
+  white-space: pre-wrap;
+  line-height: 1.6;
+}
+
+.mode-indicator {
+  font-size: 0.8em;
+  font-weight: bold;
+  color: #fff;
+  background-color: #3498db;
+  padding: 2px 5px;
+  border-radius: 3px;
+  margin-bottom: 5px;
+  display: inline-block;
+}
+
+.transcription-item.theory .mode-indicator {
+  background-color: #e67e22;
+}

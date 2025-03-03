@@ -184,9 +184,9 @@ const UserDashboard = () => {
   };
 
   return (
-    <div className="user_dashboard-container">
+    <div className="userDashboard-container">
       {/* Dashboard Header */}
-      <div className="user_dashboard-header">
+      <div className="userDashboard-header">
         <Navbar />
       </div>
 
@@ -217,7 +217,7 @@ const UserDashboard = () => {
       )}
 
       {/* Notes Section */}
-      <Notes /> {/* Render the Notes component here */}
+      {/* <Notes /> Render the Notes component here */}
     </div>
   );
 };

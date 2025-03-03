@@ -60,12 +60,12 @@ const Dashboard = () => {
               </button>
             </div>
             <div className="dash-card">
-              <img src={img4} alt="Summarize" />
-              <h2>Summarize</h2>
+              <img src={img4} alt="Python" />
+              <h2>Python</h2>
               <p>Automatic summarization.</p>
               <button
                 className="dash-btn"
-                onClick={() => handleNavigate("/summarizepage")}
+                onClick={() => handleNavigate("/python-class")}
               >
                 Go
               </button>

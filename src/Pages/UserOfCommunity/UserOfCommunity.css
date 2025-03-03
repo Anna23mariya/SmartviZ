@@ -1,0 +1,228 @@
+/* UserOfCommunity.css */
+.user-dashboard-wrapper {
+  min-height: 100vh;
+  background-color: #1e293b;
+  position: relative;
+  z-index: 1;
+}
+
+.user-community-container {
+  display: flex;
+  height: 87vh;
+  width: 90vw;
+  background: rgba(30, 40, 50, 0.8);
+  border-radius: 10px;
+  overflow: hidden;
+  color: #fff;
+  margin: 20px auto;
+  margin-top: 150px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Sidebar Styles */
+.user-community-sidebar {
+  width: 300px;
+  padding: 20px;
+  background: rgba(40, 50, 60, 0.9);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 3;
+}
+
+.user-dashboard-title {
+  font-size: 22px;
+  margin-bottom: 20px;
+  color: #fff;
+  position: relative;
+  z-index: 4;
+}
+
+/* Community List Styles */
+.user-community-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  z-index: 5;
+}
+
+.user-community-box {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 6;
+}
+
+.user-community-box:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.user-community-box.selected {
+  background: rgba(59, 130, 246, 0.5);
+  border: 1px solid #3b82f6;
+}
+
+/* Loading & No Community Text */
+.user-loading-text,
+.user-no-community-text {
+  text-align: center;
+  color: #94a3b8;
+  padding: 20px;
+  position: relative;
+  z-index: 3;
+}
+
+/* Main Content Styles */
+.user-community-main {
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
+  position: relative;
+  z-index: 2;
+}
+
+.user-select-community-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: #94a3b8;
+  font-size: 1.2rem;
+  position: relative;
+  z-index: 3;
+}
+
+.user-community-content {
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 4;
+}
+
+/* Content Sections */
+.user-content-section {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 30px;
+  position: relative;
+  z-index: 5;
+}
+
+.user-content-section h3 {
+  color: #fff;
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+}
+
+.user-notes-content {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 15px;
+  border-radius: 8px;
+  line-height: 1.6;
+  position: relative;
+  z-index: 6;
+}
+
+/* Announcements Styles */
+.user-announcements-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  position: relative;
+  z-index: 5;
+}
+
+.user-announcement-card {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 15px;
+  border-radius: 8px;
+  position: relative;
+  z-index: 6;
+}
+
+.user-announcement-text {
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+
+.user-announcement-date {
+  display: block;
+  font-size: 0.9rem;
+  color: #94a3b8;
+  text-align: right;
+}
+
+/* No Content Message */
+.user-no-content {
+  color: #94a3b8;
+  text-align: center;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  position: relative;
+  z-index: 5;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .user-community-container {
+    flex-direction: column;
+    height: auto;
+    margin-top: 100px;
+  }
+
+  .user-community-sidebar {
+    width: 100%;
+    padding: 15px;
+    z-index: 3;
+  }
+
+  .user-community-main {
+    padding: 15px;
+  }
+
+  .user-community-content {
+    padding: 0;
+  }
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.user-community-content {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Scrollbar Styles */
+.user-community-main::-webkit-scrollbar {
+  width: 8px;
+}
+
+.user-community-main::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.user-community-main::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+.user-community-main::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}

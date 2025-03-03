@@ -1,0 +1,112 @@
+.transcript-view-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .transcript-view-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .transcript-view-header h1 {
+    margin: 0;
+    color: #333;
+  }
+  
+  .transcript-view-actions {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .transcript-view-actions button {
+    padding: 8px 15px;
+    background-color: #2196F3;
+    color: rgb(217, 162, 162);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s;
+  }
+  
+  .transcript-view-actions button:hover {
+    background-color: #0b7dda;
+  }
+  
+  .transcript-view-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .theory-block {
+    padding: 15px 20px;
+    background-color: #975b5b;
+    border-left: 4px solid #2196F3;
+    border-radius: 0 4px 4px 0;
+    line-height: 1.6;
+    font-size: 16px;
+  }
+  
+  .code-block {
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .code-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    background-color: #282c34;
+    color: rgb(168, 120, 120);
+  }
+  
+  .code-title {
+    font-weight: 500;
+    font-size: 14px;
+  }
+  
+  .copy-button {
+    padding: 4px 8px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: rgb(202, 170, 170);
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background-color 0.3s;
+  }
+  
+  .copy-button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  
+  .transcript-view-error {
+    text-align: center;
+    margin-top: 50px;
+    padding: 30px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+  }
+  
+  .transcript-view-error h2 {
+    color: #f44336;
+    margin-bottom: 20px;
+  }
+  
+  .transcript-view-error button {
+    padding: 10px 20px;
+    background-color: #2196F3;
+    color: rgb(134, 110, 110);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+  }
