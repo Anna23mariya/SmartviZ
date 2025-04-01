@@ -1,33 +1,35 @@
-/* style.css */
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to bottom, #a89bb7, #f0b7b3);
+  
+}
 
-/* Basic Reset */
+/* 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  padding-top: 500;
 }
 
 body {
   font-family: Arial, sans-serif;
   background: linear-gradient(to bottom, #a89bb7, #f0b7b3);
-}
-
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #3a3f58;
-  padding: 1rem;
-  color: white;
+  
 }
 
 
-/* .dashboard {
-  padding: 2rem;
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; 
+}
+
+#root {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-  max-width: 800px;
-  margin: auto;
+  min-height: 100vh;
+  
 } */
-

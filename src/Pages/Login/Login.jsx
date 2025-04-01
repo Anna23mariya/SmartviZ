@@ -50,10 +50,10 @@ const LoginPage = () => {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    background: 'rgba(30, 40, 50, 0.7)',
+    background: 'rgba(30, 40, 50, 0.5)',
     padding: '40px',
     borderRadius: '10px',
-    boxShadow: '0px 4px 20px rgba(33, 15, 15, 0.3)',
+    boxShadow: '0px 4px 20px rgba(33, 15, 15, 0.9)',
     maxWidth: '900px',
   }}
 >

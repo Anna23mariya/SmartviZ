@@ -38,7 +38,7 @@
   background: rgba(30, 40, 50, 0.7); /* Semi-transparent background */
   padding: 40px;
   border-radius: 10px;
-  box-shadow: 0px 4px 20px rgba(33, 15, 15, 0.3);
+  box-shadow:  0px 4px 20px rgba(33, 15, 15, 0.3);
   z-index: 2;
   width: 100%;
   max-width: 900px; /* Ensure a proper container width */

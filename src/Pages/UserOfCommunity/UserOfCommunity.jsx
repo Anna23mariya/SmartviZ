@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Navbar from '../../Components/Navbar/Navbar';
 import axios from 'axios';
 import './UserOfCommunity.css';
+import Chatbot from '../../Components/Chatbot/Chatbot';
 
 const UserOfCommunity = () => {
   const [communities, setCommunities] = useState([]);
@@ -119,6 +120,7 @@ const UserOfCommunity = () => {
           )}
         </div>
       </div>
+      <Chatbot />
     </div>
   );
 };

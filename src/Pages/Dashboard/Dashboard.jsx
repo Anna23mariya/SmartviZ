@@ -39,8 +39,8 @@ const Dashboard = () => {
           <div className="dash-card-row">
             <div className="dash-card">
               <img src={img2} alt="Create Community" />
-              <h2>Community</h2>
-              <p>Transcribe speech to text.</p>
+              <h2>Create Community</h2>
+              <p>Connect with educators and learners.</p>
               <button
                 className="dash-btn"
                 onClick={() => handleNavigate("/community-head")}
@@ -51,7 +51,7 @@ const Dashboard = () => {
             <div className="dash-card">
               <img src={img3} alt="Join Community" />
               <h2>Join communities</h2>
-              <p>Audio transcription.</p>
+              <p>Share knowledge and learn together.</p>
               <button
                 className="dash-btn"
                 onClick={() => handleNavigate("/join-community")}
@@ -61,8 +61,8 @@ const Dashboard = () => {
             </div>
             <div className="dash-card">
               <img src={img4} alt="Python" />
-              <h2>Python</h2>
-              <p>Automatic summarization.</p>
+              <h2>Python Notes</h2>
+              <p>Transcribe and generate structured notes.</p>
               <button
                 className="dash-btn"
                 onClick={() => handleNavigate("/python-class")}

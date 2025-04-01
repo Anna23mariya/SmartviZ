@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './JoinCommunity.css';
 import Navbar from '../../../Components/Navbar/Navbar';
+import Chatbot from '../../../Components/Chatbot/Chatbot';
 
 
 function JoinCommunity() {
@@ -129,6 +130,7 @@ function JoinCommunity() {
           )}
         </div>
       </div>
+   
     </div>
   );
 }

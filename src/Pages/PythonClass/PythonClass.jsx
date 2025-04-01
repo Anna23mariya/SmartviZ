@@ -1,12 +1,14 @@
-// PythonClass.jsx
+// // PythonClass.jsx
 import React, { useState, useEffect, useRef } from "react";
 import './PythonClass.css';
 import './pygments-monokai.css';
+import Navbar from "../../Components/Navbar/Navbar";
 
 const PythonClass = () => {
     const [recording, setRecording] = useState(false);
     const [processing, setProcessing] = useState(false);
-    const [transcription, setTranscription] = useState([]); // Stores the ordered transcription
+    const [transcription, setTranscription] = useState([]);
+    const [outputs, setOutputs] = useState({}); // Add state for execution outputs
     const mediaRecorder = useRef(null);
     const audioChunks = useRef([]);
     const transcriptionBoxRef = useRef(null);
@@ -36,21 +38,20 @@ const PythonClass = () => {
                     });
     
                     if (!response.ok) {
-                        throw new Error('Failed to upload audio');
+                        throw new Error(`HTTP error! status: ${response.status}`);
                     }
     
                     const data = await response.json();
-                    console.log("Transcription response:", data);
+                    console.log("Transcription response:", JSON.stringify(data, null, 2));
                     
-                    // Add the new transcription with the correct type
-                    setTranscription(prev => [...prev, { 
-                        type: data.mode,  // Use the mode returned by the backend
-                        content: data.transcription 
-                    }]);
+                    // Debug each segment
+                    data.transcription.forEach(segment => console.log("New segment:", segment.type, segment.content));
+                    setTranscription(prev => [...prev, ...data.transcription]);
                     
                 } catch (error) {
                     console.error('Error uploading audio:', error);
-                    alert('Failed to process audio. Please try again.');
+                    console.error('Error details:', error.message, error.stack);
+                    alert(`Failed to process audio: ${error.message}. Please check the console for details.`);
                 } finally {
                     setProcessing(false);
                 }
@@ -69,14 +70,9 @@ const PythonClass = () => {
         if (mediaRecorder.current && mediaRecorder.current.state === 'recording') {
             mediaRecorder.current.stop();
             setRecording(false);
-            // Stop all audio tracks
             mediaRecorder.current.stream.getTracks().forEach((track) => track.stop());
         }
     };
-
-    // const toggleMode = () => {
-    //     setCurrentMode(prevMode => prevMode === "code" ? "theory" : "code");
-    // };
 
     useEffect(() => {
         if (recording || processing) {
@@ -84,11 +80,11 @@ const PythonClass = () => {
                 fetch("http://localhost:5000/programming/transcription")
                     .then(response => response.json())
                     .then(data => {
-                        console.log("Received transcription data:", data);
-                        if (data.transcription) {
-                            setTranscription(data.transcription);
+                        console.log("Polling data:", data);
+                        if (data.transcription && data.transcription.length > 0) {
+                            setTranscription(data.transcription); // Replace with full server state
                         }
-                        if (processing && data.status === "completed") {
+                        if (data.status === "completed") {
                             setProcessing(false);
                         }
                     })
@@ -109,87 +105,115 @@ const PythonClass = () => {
         console.log("Transcription:", transcription);
     }, [transcription]);
 
+    // Add function to execute code
+    const executeCode = async (index, plainCode) => {
+        try {
+            const response = await fetch('http://localhost:5000/programming/execute', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ code: plainCode }),
+            });
+            const result = await response.json();
+            setOutputs(prev => ({
+                ...prev,
+                [index]: result.output
+            }));
+        } catch (error) {
+            console.error('Error executing code:', error);
+            setOutputs(prev => ({
+                ...prev,
+                [index]: `Execution failed: ${error.message}`
+            }));
+        }
+    };
+
     return (
-        <div className="python-class-container">
-            <h1>Live Python Code Transcription</h1>
-            <div className="control-panel">
-                <div className="recording-controls">
-                    <button 
-                        className="python-class-start-btn" 
-                        onClick={startTranscription} 
-                        disabled={recording || processing}
-                    >
-                        {recording ? 'Recording...' : 'Start Transcription'}
-                    </button>
-                    <button 
-                        className="python-class-stop-btn" 
-                        onClick={stopTranscription} 
-                        disabled={!recording}
-                    >
-                        Stop Transcription
-                    </button>
+        <div>
+            <Navbar/>
+            <div className="python-class-container">
+                <h1>Live Transcription</h1>
+                <div className="control-panel">
+                    <div className="recording-controls">
+                        <button 
+                            className="python-class-start-btn" 
+                            onClick={startTranscription} 
+                            disabled={recording || processing}
+                        >
+                            {recording ? 'Recording...' : 'Start Transcription'}
+                        </button>
+                        <button 
+                            className="python-class-stop-btn" 
+                            onClick={stopTranscription} 
+                            disabled={!recording}
+                        >
+                            Stop Transcription
+                        </button>
+                    </div>
+                    {recording && (
+                        <p className="recording-indicator">Recording in progress...</p>
+                    )}
+                    {processing && (
+                        <div className="python-class-status">
+                            Transcribing...
+                        </div>
+                    )}
                 </div>
                 
-                {/* <div className="mode-toggle">
-                    <label className="mode-label">Current Mode: </label>
-                    <button 
-                        onClick={toggleMode} 
-                        className={`mode-toggle-btn ${currentMode === "code" ? "code-mode" : "theory-mode"}`}
-                        disabled={recording}
-                    >
-                        {currentMode === "code" ? "Code Mode" : "Theory Mode"}
-                    </button>
-                    <span className="mode-description">
-                        {currentMode === "code" 
-                            ? "(Recording will be processed as code)" 
-                            : "(Recording will be processed as theory text)"}
-                    </span>
+                <h2>Transcribed Content:</h2>
+                <div className="python-class-transcription-box" ref={transcriptionBoxRef}>
+                    {transcription.length === 0 && (
+                        <p className="empty-state">No transcriptions yet. Start recording to see content here.</p>
+                    )}
+                    
+                    {transcription.map((item, index) => (
+                        <div key={index} className="transcription-flow">
+                            {item.type === "theory" ? (
+                                <p className="theory-text">{item.content}</p>
+                            ) : item.type === "code" ? (
+                                <div className="code-box-container">
+                                    <div className="code-header">
+                                        <button 
+                                            className="execute-btn"
+                                            onClick={() => executeCode(index, item.plain_code)}
+                                        >
+                                            Execute
+                                        </button>
+                                    </div>
+                                    <pre className="code-box">
+                                        <code dangerouslySetInnerHTML={{ __html: item.content }} />
+                                    </pre>
+                                    {outputs[index] && (
+                                        <div className="output-box">
+                                            <strong>Output:</strong>
+                                            <pre>{outputs[index]}</pre>
+                                        </div>
+                                    )}
+                                </div>
+                            ) : (
+                                <p className="theory-text">Unknown type: {item.content}</p>
+                            )}
+                        </div>
+                    ))}
                 </div>
-                 */}
-                {recording && (
-                    <p className="recording-indicator">Recording in progress...</p>
-                )}
-                {processing && (
-                    <div className="python-class-status">
-                        Transcribing...
-                    </div>
-                )}
-            </div>
-            
-            <h2>Transcribed Content:</h2>
-            <div className="python-class-transcription-box" ref={transcriptionBoxRef}>
-                {transcription.length === 0 && (
-                    <p className="empty-state">No transcriptions yet. Start recording to see content here.</p>
-                )}
-                
-                {transcription.map((item, index) => (
-                    <div key={index} className={`transcription-item ${item.type}`}>
-                        {item.type === "code" ? (
-                            <div dangerouslySetInnerHTML={{ __html: item.content }} />
-                        ) : (
-                            <div className="theory-content">
-                                {item.content}
-                            </div>
-                        )}
-                    </div>
-                ))}
             </div>
         </div>
     );
 };
 
 export default PythonClass;
-// //PythonClass.jsx
+
 // import React, { useState, useEffect, useRef } from "react";
 // import './PythonClass.css';
 // import './pygments-monokai.css';
+// import Navbar from "../../Components/Navbar/Navbar";
 
 // const PythonClass = () => {
 //     const [recording, setRecording] = useState(false);
 //     const [processing, setProcessing] = useState(false);
-//     const [finalTranscript, setFinalTranscript] = useState(""); // Stores the highlighted HTML transcription
+//     const [transcription, setTranscription] = useState([]); // Stores the ordered transcription
 //     const mediaRecorder = useRef(null);
 //     const audioChunks = useRef([]);
+//     const transcriptionBoxRef = useRef(null);
 
 //     const startTranscription = async () => {
 //         try {
@@ -216,15 +240,20 @@ export default PythonClass;
 //                     });
     
 //                     if (!response.ok) {
-//                         throw new Error('Failed to upload audio');
+//                         throw new Error(`HTTP error! status: ${response.status}`);
 //                     }
     
 //                     const data = await response.json();
-//                     console.log("Transcription response:", data);
-//                     setFinalTranscript(data.transcription);
+//                     console.log("Transcription response:", JSON.stringify(data, null, 2));
+                    
+//                     // Debug each segment
+//                     data.transcription.forEach(segment => console.log("New segment:", segment.type, segment.content));
+//                     setTranscription(prev => [...prev, ...data.transcription]);
+                    
 //                 } catch (error) {
 //                     console.error('Error uploading audio:', error);
-//                     alert('Failed to process audio. Please try again.');
+//                     console.error('Error details:', error.message, error.stack);
+//                     alert(`Failed to process audio: ${error.message}. Please check the console for details.`);
 //                 } finally {
 //                     setProcessing(false);
 //                 }
@@ -243,7 +272,6 @@ export default PythonClass;
 //         if (mediaRecorder.current && mediaRecorder.current.state === 'recording') {
 //             mediaRecorder.current.stop();
 //             setRecording(false);
-//             // Stop all audio tracks
 //             mediaRecorder.current.stream.getTracks().forEach((track) => track.stop());
 //         }
 //     };
@@ -254,11 +282,11 @@ export default PythonClass;
 //                 fetch("http://localhost:5000/programming/transcription")
 //                     .then(response => response.json())
 //                     .then(data => {
-//                         console.log("Received transcription data:", data);
-//                         if (data.transcription) {
-//                             setFinalTranscript(data.transcription);
+//                         console.log("Polling data:", data);
+//                         if (data.transcription && data.transcription.length > 0) {
+//                             setTranscription(data.transcription); // Replace with full server state
 //                         }
-//                         if (processing && data.status === "completed") {
+//                         if (data.status === "completed") {
 //                             setProcessing(false);
 //                         }
 //                     })
@@ -267,26 +295,43 @@ export default PythonClass;
 //             return () => clearInterval(interval);
 //         }
 //     }, [recording, processing]);
+
+//     // Scroll to bottom when new content is added
+//     useEffect(() => {
+//         if (transcriptionBoxRef.current) {
+//             transcriptionBoxRef.current.scrollTop = transcriptionBoxRef.current.scrollHeight;
+//         }
+//     }, [transcription]);
+
+//     useEffect(() => {
+//         console.log("Transcription:", transcription);
+//     }, [transcription]);
+
 //     return (
+//         <div>
+//             <Navbar/>
+        
 //         <div className="python-class-container">
 //             <h1>Live Python Code Transcription</h1>
-//             <div>
-//                 <button 
-//                     className="python-class-start-btn" 
-//                     onClick={startTranscription} 
-//                     disabled={recording || processing}
-//                 >
-//                     {recording ? 'Recording...' : 'Start Transcription'}
-//                 </button>
-//                 <button 
-//                     className="python-class-stop-btn" 
-//                     onClick={stopTranscription} 
-//                     disabled={!recording}
-//                 >
-//                     Stop Transcription
-//                 </button>
+//             <div className="control-panel">
+//                 <div className="recording-controls">
+//                     <button 
+//                         className="python-class-start-btn" 
+//                         onClick={startTranscription} 
+//                         disabled={recording || processing}
+//                     >
+//                         {recording ? 'Recording...' : 'Start Transcription'}
+//                     </button>
+//                     <button 
+//                         className="python-class-stop-btn" 
+//                         onClick={stopTranscription} 
+//                         disabled={!recording}
+//                     >
+//                         Stop Transcription
+//                     </button>
+//                 </div>
 //                 {recording && (
-//                     <p className="mt-4 text-center text-red-500">Recording in progress...</p>
+//                     <p className="recording-indicator">Recording in progress...</p>
 //                 )}
 //                 {processing && (
 //                     <div className="python-class-status">
@@ -294,12 +339,28 @@ export default PythonClass;
 //                     </div>
 //                 )}
 //             </div>
-//             <h2>Transcribed Code:</h2>
-//             {/* // In PythonClass.jsx, make sure dangerouslySetInnerHTML is used correctly */}
-//             <div
-//                 className="python-class-transcription-box"
-//                 dangerouslySetInnerHTML={{ __html: finalTranscript || "Waiting for transcription..." }}
-//             ></div>
+            
+//             <h2>Transcribed Content:</h2>
+//             <div className="python-class-transcription-box" ref={transcriptionBoxRef}>
+//                 {transcription.length === 0 && (
+//                     <p className="empty-state">No transcriptions yet. Start recording to see content here.</p>
+//                 )}
+                
+//                 {transcription.map((item, index) => (
+//                     <div key={index} className="transcription-flow">
+//                         {item.type === "theory" ? (
+//                             <p className="theory-text">{item.content}</p>
+//                         ) : item.type === "code" ? (
+//                             <pre className="code-box">
+//                                 <code dangerouslySetInnerHTML={{ __html: item.content }} />
+//                             </pre>
+//                         ) : (
+//                             <p className="theory-text">Unknown type: {item.content}</p>
+//                         )}
+//                     </div>
+//                 ))}
+//             </div>
+//         </div>
 //         </div>
 //     );
 // };

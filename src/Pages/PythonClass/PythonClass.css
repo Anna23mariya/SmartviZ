@@ -1,4 +1,3 @@
-/* PythonClass.css */
 .python-class-container {
   max-width: 800px;
   margin: auto;
@@ -52,77 +51,46 @@
   border-radius: 5px;
   overflow-x: auto;
   font-family: 'Courier New', Courier, monospace;
+  position: relative;
+  z-index: 1;
 }
 
-.transcription-item {
-  margin-bottom: 20px;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
+.transcription-flow {
+  margin-bottom: 1rem; /* Space between segments */
 }
 
-.transcription-item.code {
-  background-color: #272822;
-  color: #f8f8f2;
-  padding: 10px;
-  border-radius: 5px;
-  overflow-x: auto;
-  white-space: pre-wrap;
-}
-
-.transcription-item.theory {
-  background-color: #fff;
-  color: #333;
-  padding: 10px;
-  border-radius: 5px;
-  line-height: 1.6;
-  white-space: pre-wrap;
-}
-
-.theory-content {
-  white-space: pre-wrap;
-  line-height: 1.6;
-}
-
-/* Make sure code inside the highlighted sections wraps properly */
-.transcription-item.code pre {
-  white-space: pre-wrap; /* Allow long lines to wrap */
-  word-wrap: break-word; /* Break words if necessary */
+.theory-text {
   margin: 0;
+  line-height: 1.5;
+  color: #333;
+  white-space: pre-wrap; /* Preserve whitespace and allow wrapping */
 }
 
-/* Style for the highlighted code */
-.transcription-item.code .highlight {
-  overflow-x: auto;
+.code-box {
+  background: #272822; /* Matches Monokai background */
+  border-radius: 5px;
+  padding: 1rem;
+  overflow-x: auto; /* For long code lines */
+  margin: 0.5rem 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle box effect */
 }
 
-/* Ensure all code elements wrap properly */
-.transcription-item.code code {
-  white-space: pre-wrap;
-  word-wrap: break-word;
+.code-box code {
+  color: #f8f8f2; /* Default text color for Monokai */
+  font-family: 'Courier New', Courier, monospace;
+  white-space: pre-wrap; /* Preserve whitespace and wrap long lines */
 }
 
-/* Style specifically for Pygments-highlighted code */
-.highlight {
-  overflow-x: auto;
-}
+/* Ensure Pygments styles from pygments-monokai.css are applied correctly */
+.highlight .k { color: #f92672; } /* Keywords */
+.highlight .n { color: #f8f8f2; } /* Names */
+.highlight .s { color: #a6e22e; } /* Strings */
+.highlight .o { color: #f92672; } /* Operators */
+.highlight .mi { color: #ae81ff; } /* Integers */
+.highlight .p { color: #f8f8f2; } /* Punctuation */
+.highlight .c { color: #75715e; } /* Comments */
 
-.highlight pre {
-  white-space: pre-wrap;
-  word-wrap: break-word;
-}
-
-/* Adjust margins for paragraphs in theory sections */
-.transcription-item.theory p {
-  margin: 0 0 10px 0;
-}
-
-/* Add a visual separator between different sections */
-.transcription-item + .transcription-item {
-  border-top: 1px solid #eee;
-  padding-top: 15px;
-}
-
-/* Additional CSS for the mode toggle */
+/* Control panel and recording indicator styles */
 .control-panel {
   display: flex;
   flex-direction: column;
@@ -138,51 +106,6 @@
   display: flex;
   justify-content: center;
   margin-bottom: 15px;
-}
-
-.mode-toggle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 10px;
-  flex-wrap: wrap;
-}
-
-.mode-label {
-  margin-right: 10px;
-  font-weight: bold;
-}
-
-.mode-toggle-btn {
-  padding: 8px 16px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s;
-  z-index: 10;
-  position: relative;
-}
-
-.mode-toggle-btn.code-mode {
-  background-color: #3498db;
-  color: white;
-}
-
-.mode-toggle-btn.theory-mode {
-  background-color: #e67e22;
-  color: white;
-}
-
-.mode-toggle-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.mode-description {
-  margin-left: 10px;
-  font-size: 0.9em;
-  color: #666;
 }
 
 .recording-indicator {
@@ -205,22 +128,44 @@
   padding: 20px;
 }
 
-.theory-content {
-  white-space: pre-wrap;
-  line-height: 1.6;
+
+
+
+/* ... (keep existing styles) */
+
+.code-box-container {
+  position: relative;
+  margin: 0.5rem 0;
 }
 
-.mode-indicator {
-  font-size: 0.8em;
-  font-weight: bold;
-  color: #fff;
-  background-color: #3498db;
-  padding: 2px 5px;
+.code-header {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 5px;
+}
+
+.execute-btn {
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  padding: 5px 10px;
   border-radius: 3px;
-  margin-bottom: 5px;
-  display: inline-block;
+  cursor: pointer;
+  font-size: 12px;
 }
 
-.transcription-item.theory .mode-indicator {
-  background-color: #e67e22;
+.execute-btn:hover {
+  background-color: #1976d2;
+}
+
+.output-box {
+  background: #1e1e1e;
+  color: #ffffff;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+  font-family: 'Courier New', Courier, monospace;
+  white-space: pre-wrap;
+  font-size: 14px;
 }

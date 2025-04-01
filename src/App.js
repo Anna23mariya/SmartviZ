@@ -23,6 +23,9 @@ import JoinCommunity from './Pages/OptionsPage/JoinCommunity/JoinCommunity';
 import UserOfCommunity from './Pages/UserOfCommunity/UserOfCommunity';
 import TranscriptView from './Pages/TranscriptView/TranscriptView';
 
+import NotesGenerator from './Pages/NotesGenerator/NotesGenerator';
+
+
 import './App.css';  // Import the CSS file
 import PythonClass from "./Pages/PythonClass/PythonClass";
 
@@ -62,6 +65,9 @@ function App() {
 
                 <Route path="/python-class" element={<PythonClass />} />
                 <Route path="/transcript-view" element={<TranscriptView />} />
+
+                <Route path="NotesGenerator" element={<NotesGenerator />} />
+                
             </Routes>
         </Router>
     );
