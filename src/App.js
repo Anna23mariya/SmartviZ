@@ -25,6 +25,8 @@ import TranscriptView from './Pages/TranscriptView/TranscriptView';
 
 import NotesGenerator from './Pages/NotesGenerator/NotesGenerator';
 
+import TranscriptionPage from './Pages/TranscriptionPage/TranscriptionPage';
+
 
 import './App.css';  // Import the CSS file
 import PythonClass from "./Pages/PythonClass/PythonClass";
@@ -67,6 +69,9 @@ function App() {
                 <Route path="/transcript-view" element={<TranscriptView />} />
 
                 <Route path="NotesGenerator" element={<NotesGenerator />} />
+
+              
+                <Route path="/transcription" element={<TranscriptionPage />} />
                 
             </Routes>
         </Router>

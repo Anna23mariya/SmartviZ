@@ -68,6 +68,11 @@ const Chatbot = () => {
       setIsTyping(false);
     } catch (error) {
       console.error('Error:', error);
+      setMessages([...chatMessages, {
+        message: "Sorry, there was an error processing your request. Please try again or check the server.",
+        sender: "Llama",
+        direction: 'incoming'
+      }]);
       setIsTyping(false);
     }
   };
